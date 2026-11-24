@@ -16,6 +16,10 @@ def main():
     assert LINE.count(".") == 1 and LINE.endswith("."), "line must be one sentence"
     # Deadpan: no exclamation mark doing the work, no winking.
     assert "!" not in LINE, "line must hold the deadpan"
+    # The gate counts characters; keep the line plain ASCII so byte and
+    # character counts agree, with no stray leading/trailing whitespace.
+    assert LINE.isascii(), "line must be plain ASCII"
+    assert LINE == LINE.strip(), "line must not start or end with whitespace"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LINE)
